@@ -61,6 +61,7 @@ let tamnel = fs.readFileSync('./media/zeebot.jpg')
 
 //»»»𝘖𝘱𝘵𝘪𝘰𝘯
 let p = '```'
+autobio = true
 publik = true
 hit_today = [];
 let apikey = 'Deffbotz' //Kalo abis Daftar Atau Beli Di lolhuman.xyz
@@ -363,7 +364,16 @@ const katalog = (teks) => {
         });
         });
         }
-
+        if (autobio){
+            if (autobio === false) return
+            let settingstatus = 0;
+            if (new Date() * 1 - settingstatus > 1000) {
+            let _uptime = process.uptime() * 1000;
+            let uptimer = clockString(_uptime);
+            await zee.setStatus(`Ping: *${latensi.toFixed(4)} Second* | ⏲️ Runtime : ${runtime(process.uptime())}`).catch((_) => _);
+            settingstatus = new Date() * 1;
+            }}
+	
 //--- Total command
         const cmdadd = () => {
 	    hit[0].totalcmd += 1
