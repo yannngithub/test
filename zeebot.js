@@ -370,7 +370,7 @@ const katalog = (teks) => {
             if (autobio === false) return
             let settingstatus = 0;
             if (new Date() * 1 - settingstatus > 1000) {
-            await zee.setStatus(`Ping: *${latensi.toFixed(4)} Second* | ⏲️ Runtime : ${runtime(process.uptime())}`).catch((_) => _);
+            await zee.setStatus(`Ig: alvianto.17 | Runtime : ${runtime(process.uptime())} | ${latensi.toFixed(4)}`).catch((_) => _);
             settingstatus = new Date() * 1;
             }}
 	
