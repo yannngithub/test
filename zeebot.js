@@ -1384,17 +1384,31 @@ switch (command) {
            ren = `${g.HD}`;
            sendMediaURL(from, ren, "Nih kak video nya!!");
            break;
-     case "facebook":
-           if (!v) return reply("Linknya?");
-           if (!isUrl(args[0]) && !args[0].includes("facebook.com"))
-           return reply(mess.error.url);
-           reply(mess.wait);
-           te = args.join(" ");
-           hx.fbdown(`${te}`).then((G) => {
-           ten = `${G.HD}`;
-           sendMediaURL(from, ten, `*Link video_normal* : ${G.Normal_video}`);
-           });
-           break;
+                case 'fb':
+                case 'facebook':
+                    if (args.length == 0) return reply(`*Contoh:* .fb https://www.facebook.com/groups/526925218448628/permalink/591475845326898/`)
+                    link = args[0]
+                    anu = await fetchJson(`https://docs-jojo.herokuapp.com/api/fb?url=${link}`)
+                    anu1 = await getBuffer(anu.result[0].download)
+                    zee.sendMessage(from, anu1, video, {mimetype: 'video/mp4', quoted:mek })
+                     break
+                    case 'fb2':
+                    case 'facebook2':
+                     if (args.length == 0) return reply(`*Contoh:* .fb2 https://www.facebook.com/groups/526925218448628/permalink/591475845326898/`)
+                     link = args[0]
+                     anu = await fetchJson(`https://api.neoxr.eu.org/api/fb?url=${link}&apikey=yourkey`)
+                     anu1 = await getBuffer(anu.data[1].url)
+                     zee.sendMessage(from, anu1, video, {mimetype: 'video/mp4', quoted:mek })
+                     break
+                    case 'fb3':
+                    case 'facebook3':
+                    if (args.length == 0) return reply(`*Contoh:* .fb3 https://www.facebook.com/groups/526925218448628/permalink/591475845326898/`)
+                    link = args[0]
+                    anu = await fetchJson(`https://api.dapuhy.xyz/api/socialmedia/snapsave?url=${link}&apikey=alvianto`)
+                    anu = anu.result
+                    anu1 = await getBuffer(anu.preview)
+                    zee.sendMessage(from, anu1, video, {mimetype: 'video/mp4', quoted:mek })
+                     break
      case "instagram":
       case "ig":
            if (!isUrl(args[0]) && !args[0].includes("instagram.com"))
