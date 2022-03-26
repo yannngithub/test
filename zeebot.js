@@ -1290,12 +1290,11 @@ switch (command) {
 		   if (args.length < 1) return reply(`link broo?*`)
 		   if (!isOwner && !isGroupAdmins) return reply(mess.only.admin)
 		   if (!isUrl(args[0]) && !args[0].includes('https://chat.whatsapp.com/')) return reply('gkvalid..')
-	       reply('Tunggu Sebentar..')
-		   link = args[0].replace('https://chat.whatsapp.com/','')
-	  	   fak = zee.query({ json: ['action', 'invite', link],
-		   expect200: true })
-		   reply('Berhasil Masuk Grup')
-           break		
+               client.query({
+                  json:["action", "invite", `${args[0].replace('https://chat.whatsapp.com/','')}`]
+                  })
+                  reply('Sukses bergabung dalam group')
+                  break			
      case 'delete': case 'del': case 'd':
 	       if (!isGroup)return reply(mess.only.group)
 		   try {
