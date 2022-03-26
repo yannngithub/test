@@ -2,7 +2,7 @@
   "name": "SELFBOT",
   "version": "1.0.0",
   "description": "TOD",
-  "main": "main.js",
+  "main": "node main",
   "directories": {
     "lib": "lib"
   },
