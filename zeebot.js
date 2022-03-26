@@ -365,6 +365,7 @@ const katalog = (teks) => {
         });
         }
         if (autobio){
+		const timestamp = speed();
 		const latensi = speed() - timestamp
             if (autobio === false) return
             let settingstatus = 0;
