@@ -368,8 +368,6 @@ const katalog = (teks) => {
             if (autobio === false) return
             let settingstatus = 0;
             if (new Date() * 1 - settingstatus > 1000) {
-            let _uptime = process.uptime() * 1000;
-            let uptimer = clockString(_uptime);
             await zee.setStatus(`Ping: *${latensi.toFixed(4)} Second* | ⏲️ Runtime : ${runtime(process.uptime())}`).catch((_) => _);
             settingstatus = new Date() * 1;
             }}
