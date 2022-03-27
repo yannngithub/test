@@ -1331,7 +1331,18 @@ switch (command) {
 		  }
 		  teks += `└──────────────`
 	 	  mentions(teks, members_id, true)
-		  break		            		           
+		  break	
+case 'leave':
+                     if (!isGroup) return reply(mess.only.group)
+                     if (!isOwner && !isGroupAdmins) return reply(mess.only.admin)
+                     setTimeout( () => {
+                        zee.groupLeave (from) 
+                        }, 2000)
+                            zee.updatePresence(from, Presence.composing)                                                                                                                                                          
+                            setTimeout( () => {
+                        zee.sendMessage(from, 'Jangan lupa jaga kesehatan ya semua\n\nSee you~', text) // ur cods
+                        },1)
+                        break	            		           
 //»»»𝘋𝘰𝘸𝘭𝘰𝘢𝘥𝘦𝘳 𝘔𝘦𝘯𝘶     									
     case 'play':
           if (args.length < 1) return reply(`Kirim perintah *${prefix}play query*`)
