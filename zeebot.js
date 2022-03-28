@@ -134,9 +134,11 @@ var time2 = moment().tz('Asia/Jakarta').format('HH:mm:ss')
 		body = (type === 'conversation' && mek.message.conversation.startsWith(prefix)) ? mek.message.conversation : (type == 'imageMessage') && mek.message[type].caption.startsWith(prefix) ? mek.message[type].caption : (type == 'videoMessage') && mek.message[type].caption.startsWith(prefix) ? mek.message[type].caption : (type == 'extendedTextMessage') && mek.message[type].text.startsWith(prefix) ? mek.message[type].text : (type == 'listResponseMessage') && mek.message[type].singleSelectReply.selectedRowId ? mek.message[type].singleSelectReply.selectedRowId : (type == 'buttonsResponseMessage') && mek.message[type].selectedButtonId ? mek.message[type].selectedButtonId : ''
 		budy = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
 		bodi = (type === 'conversation') ? mek.message.conversation : (type === 'extendedTextMessage') ? mek.message.extendedTextMessage.text : ''
+            var pes = (type === 'conversation' && mek.message.conversation) ? mek.message.conversation : (type == 'imageMessage') && mek.message.imageMessage.caption ? mek.message.imageMessage.caption : (type == 'videoMessage') && mek.message.videoMessage.caption ? mek.message.videoMessage.caption : (type == 'extendedTextMessage') && mek.message.extendedTextMessage.text ? mek.message.extendedTextMessage.text : ''
 	    const command = body.slice(1).trim().split(/ +/).shift().toLowerCase()		
 	    hit_today.push(command);
 	  	const is = budy.slice(0).trim().split(/ +/).shift().toLowerCase()
+              const messagesC = pes.slice(0).trim().split(/ +/).shift().toLowerCase()
       	const args = body.trim().split(/ +/).slice(1)
     	const isCmd = body.startsWith(prefix)
        	const v = args.join(' ')
@@ -385,13 +387,13 @@ const katalog = (teks) => {
         const totalhit = JSON.parse(fs.readFileSync('./lib/data/totalcmd.json'))[0].totalcmd
         
 // ---- Antilink 
-        const linkwa = 'https://chat.whatsapp.com/'
-		if (budy.includes(`${linkwa}`)){
+        
+            if (messagesC.includes("chat.whatsapp.com")){
 		if (!isGroup) return
 		if (!isAnti) return
         if (!isBotGroupAdmins) return reply('Untung Gue bukan admin, kalo iya gua kick lu')
         linkgc = await zee.groupInviteCode (from)
-        if (budy.includes(`${linkwa}${linkgc}`)) return reply('Untung Link group ini')
+        if (budy.includes(`https://chat.whatsapp.com/${linkgc}`)) return reply('Untung Link group ini')
 		if (isGroupAdmins) return reply(`Hmm mantap min`)
 		zee.updatePresence(from, Presence.composing)
 		var Kick = `${sender.split("@")[0]}@s.whatsapp.net`
@@ -1286,15 +1288,12 @@ switch (command) {
            linkgc = await zee.groupInviteCode(from)
            reply('https://chat.whatsapp.com/'+linkgc)  
            break         	   
-     case 'join':case 'joingc':
-		   if (args.length < 1) return reply(`link broo?*`)
-		   if (!isOwner && !isGroupAdmins) return reply(mess.only.admin)
-		   if (!isUrl(args[0]) && !args[0].includes('https://chat.whatsapp.com/')) return reply('gkvalid..')
-               zee.query({
-                  json:["action", "invite", `${args[0].replace('https://chat.whatsapp.com/','')}`]
-                  })
-                  reply('Sukses bergabung dalam group')
-                  break			
+     case 'join':
+           case 'invite':
+            link = args[0].replace('https://chat.whatsapp.com/','')
+              await zee.acceptInvite(link)
+              reply('Berhasil Masuk Grup')
+                  break	
      case 'delete': case 'del': case 'd':
 	       if (!isGroup)return reply(mess.only.group)
 		   try {
